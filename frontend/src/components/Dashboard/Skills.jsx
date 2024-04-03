@@ -6,13 +6,28 @@ const Skills = () => {
    const [skills, setSkills] = useState([])
 
    useEffect(() => {
-       axios.get('http://localhost:8080/dashboard/get/skills')
-       .then(result => {
-         if(result.data){
-           setSkills(result.data)
-         }
-       }).catch(err => console.log(err))
-   }, [])
+
+    const authToken = localStorage.getItem('authToken');
+
+    axios.get('http://localhost:8080/dashboard/get/skills', {
+      headers: {
+        Authorization: `Bearer ${authToken}`
+      }
+    })
+      .then(result => {
+        if (result.data) {
+          setSkills(result.data);
+        }
+      })
+      .catch(err => console.log(err));
+  }, []);
+    //   axios.get('http://localhost:8080/dashboard/get/skills')
+      // .then(result => {
+        // if(result.data){
+         //  setSkills(result.data)
+        // }
+       //}).catch(err => console.log(err))
+  // }, [])
   return (
     <div className='px-5 mt-3'>
       <div className='d-flex justify-content-center'>
