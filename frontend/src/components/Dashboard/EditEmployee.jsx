@@ -17,12 +17,25 @@ const EditEmployee = () => {
       const navigate = useNavigate()
 
       useEffect(() => {
-        axios.get('http://localhost:8080/dashboard/get/skills')
-        .then(result => {
-          if(result.data){
-            setSkills(result.data)
-          }
-        }).catch(err => console.log(err))
+
+          const authToken = localStorage.getItem('authToken');
+
+    axios.get('http://localhost:8080/dashboard/get/skills', {
+      headers: {
+        Authorization: `Bearer ${authToken}`
+      }
+    })
+      .then(result => {
+        if (result.data) {
+          setSkills(result.data);
+        }
+      })          
+       // axios.get('http://localhost:8080/dashboard/get/skills')
+        //.then(result => {
+         // if(result.data){
+          //  setSkills(result.data)
+         // }
+        //}).catch(err => console.log(err))
       
 
       const fetchEmployeeData = async () => {
